@@ -2,8 +2,6 @@ import unittest
 
 import json  # you can use toml, json,yaml, or ryo for your config file
 
-from config_parser import parse_config
-
 
 class TestConfigParsing(unittest.TestCase):
     def test_parse_config_has_correct_location_and_spaces(self):
