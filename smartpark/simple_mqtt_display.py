@@ -21,8 +21,8 @@ class Display(mqtt_device.MqttDevice):
 
     def on_message(self, client, userdata, msg):
         data = msg.payload.decode()
-        self.display(*data.split(','))
         # TODO: Parse the message and extract free spaces,\
+        self.display(*data.split(','))
 
 
 if __name__ == '__main__':
