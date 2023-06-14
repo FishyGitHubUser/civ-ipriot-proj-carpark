@@ -1,6 +1,8 @@
 import mqtt_device
 import time
 from config_parser import parse_config
+
+
 class Display(mqtt_device.MqttDevice):
     """Displays the number of cars and the temperature"""
     def __init__(self, config):

@@ -27,6 +27,7 @@ class CarPark(mqtt_device.MqttDevice):
     @property
     def temperature(self):
         self._temperature
+        return self._temperature
     
     @temperature.setter
     def temperature(self, value):
@@ -34,19 +35,18 @@ class CarPark(mqtt_device.MqttDevice):
         
     def _publish_event(self):
         readable_time = datetime.now().strftime('%H:%M')
-        temp_c = random.randrange(0, 50)
 
         print(
             (
                 f"TIME: {readable_time}, "
                 + f"SPACES: {self.available_spaces}, "
-                + f"TEMPC: {temp_c}"
+                + f"TEMPC: {self.temperature}"
             )
         )
         message = (
             f"TIME: {readable_time}, "
             + f"SPACES: {self.available_spaces}, "
-            + f"TEMPC: {temp_c}"
+            + f"TEMPC: {self.temperature}"
         )
         self.client.publish('display', message)
 
@@ -61,7 +61,8 @@ class CarPark(mqtt_device.MqttDevice):
     def on_message(self, client, userdata, msg: MQTTMessage):
         payload = msg.payload.decode()
         # TODO: Extract temperature from payload
-        # self.temperature = ... # Extracted value
+        self.temperature = payload.strip().split('/')[-1]
+
         if 'exit' in payload:
             self.on_car_exit()
         else:
@@ -70,6 +71,6 @@ class CarPark(mqtt_device.MqttDevice):
 
 if __name__ == '__main__':
     # TODO: Read config from file
-    config = parse_config() # file type can be anything, suggested .json
+    config = parse_config()  # file type can be anything, suggested .json
     car_park = CarPark(config)
 
