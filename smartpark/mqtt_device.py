@@ -22,3 +22,4 @@ class MqttDevice:
     def _create_topic_string(self):
         return (f"{self.topic_root}/{self.location}/" +
                 f"{self.name}/{self.topic_qualifier}")
+

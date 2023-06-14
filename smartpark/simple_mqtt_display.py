@@ -1,5 +1,6 @@
 import mqtt_device
 import time
+from config_parser import parse_config
 class Display(mqtt_device.MqttDevice):
     """Displays the number of cars and the temperature"""
     def __init__(self, config):
@@ -15,20 +16,22 @@ class Display(mqtt_device.MqttDevice):
             time.sleep(1)
 
         print('*' * 20)
+
     def on_message(self, client, userdata, msg):
-       data = msg.payload.decode()
-       self.display(*data.split(','))
-       # TODO: Parse the message and extract free spaces,\
+        data = msg.payload.decode()
+        self.display(*data.split(','))
+        # TODO: Parse the message and extract free spaces,\
 
 
 if __name__ == '__main__':
-    config = {'name': 'display',
-     'location': 'L306',
-     'topic-root': "lot",
-     'broker': 'localhost',
-     'port': 1883,
-     'topic-qualifier': 'na'
-     }
+    """config = {'name': 'display',
+              'location': 'L306',
+              'topic-root': "lot",
+              'broker': 'localhost',
+              'port': 1883,
+              'topic-qualifier': 'na'
+              }"""
     # TODO: Read config from file
+    config = parse_config()
     display = Display(config)
 

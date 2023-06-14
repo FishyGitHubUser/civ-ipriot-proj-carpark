@@ -5,6 +5,7 @@ import random
 import mqtt_device
 from config_parser import parse_config
 
+
 class Sensor(mqtt_device.MqttDevice):
 
     @property
@@ -15,7 +16,6 @@ class Sensor(mqtt_device.MqttDevice):
     def on_detection(self, message):
         """Triggered when a detection occurs"""
         self.client.publish('sensor', message)
-
 
     def start_sensing(self):
         """ A blocking event loop that waits for detection events, in this
@@ -29,16 +29,17 @@ class Sensor(mqtt_device.MqttDevice):
             else:
                 self.on_detection(f"exited, {self.temperature}")
 
+
 if __name__ == '__main__':
-   """ config1 = {'name': 'sensor',
+    """ config1 = {'name': 'sensor',
               'location': 'moondalup',
               'topic-root': "lot",
               'broker': 'localhost',
               'port': 1883,
               }"""
-   # TODO: Read previous config from file instead of embedding
-   config1 = parse_config()
-   sensor1 = Sensor(config1)
+    # TODO: Read previous config from file instead of embedding
+    config1 = parse_config()
+    sensor1 = Sensor(config1)
 
-   sensor1.start_sensing()
+    sensor1.start_sensing()
 
