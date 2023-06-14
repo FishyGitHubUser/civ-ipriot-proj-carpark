@@ -26,13 +26,6 @@ class Display(mqtt_device.MqttDevice):
 
 
 if __name__ == '__main__':
-    """config = {'name': 'display',
-              'location': 'L306',
-              'topic-root': "lot",
-              'broker': 'localhost',
-              'port': 1883,
-              'topic-qualifier': 'na'
-              }"""
     # TODO: Read config from file
     config = parse_config()
     display = Display(config)

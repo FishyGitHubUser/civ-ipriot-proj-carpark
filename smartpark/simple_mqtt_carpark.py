@@ -71,6 +71,7 @@ class CarPark(mqtt_device.MqttDevice):
 
 if __name__ == '__main__':
     # TODO: Read config from file
-    config = parse_config()  # file type can be anything, suggested .json
+    # file type can be anything, suggested .json
+    config = parse_config()
     car_park = CarPark(config)
 
